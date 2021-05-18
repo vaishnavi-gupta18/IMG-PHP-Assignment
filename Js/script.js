@@ -97,5 +97,22 @@ function validate()
     }
     return check;
 }
-
-
+function validate_s()
+{
+    var check = true; 
+    var pass = document.forms['signup']["password"].value;
+    var username = document.forms['signup']["username"].value;
+    var pat=[]
+    if(username.length==0)
+    {
+        seterror("fusername","*Username can't be empty");
+        check = false;
+    }
+    pat[3]=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+    if(pat[3].test(pass)==false)
+    {
+        seterror("fpassword","*Password must contain at least one lowercase character, one uppercase character, one digit, one special character, and a length between 8 to 20");
+        check = false;
+    }
+    return check;
+}

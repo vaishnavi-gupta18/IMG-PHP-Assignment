@@ -38,7 +38,7 @@
                     <input type="submit" value="Sign Up"  id="btn">
             </div>
                 <div class="item">
-                   <div> Already have an account? <a href="index.html">Login here</a></div>
+                   <div> Already have an account? <a href="index.php">Login here</a></div>
                 </div></div>
             </form>
         </div>
@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     
     $num = mysqli_num_rows($result); 
     $nume = mysqli_num_rows($resulte); 
-
+    echo "<script>alert('" . $num . "')</script>";
 
     if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());

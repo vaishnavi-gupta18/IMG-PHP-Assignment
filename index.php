@@ -12,7 +12,7 @@
     <div class="content">
         <div class="container">
             <div class="head"><h1>SIGN IN</h1></div>
-            <form name="signup" action='index.php' id="form" method="post" onsubmit="return validate()">
+            <form name="signup" action='index.php' id="form" method="post" onsubmit="return validate_s()">
                 <div class="form">
                 <div class="item" id="fusername">
                     <label for="username">Username :</label>
@@ -27,7 +27,7 @@
                 <div class="item">
                     <input type="submit" value="Sign In" id="btn"></div>
             <div class="item">
-                <div>Don't have an account? <a href='signup.html'>Sign Up here</a></div>
+                <div>Don't have an account? <a href='signup.php'>Sign Up here</a></div>
             </div></div>
             </form>
         </div>
@@ -50,20 +50,32 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
       }
 
           $username = test_input($_POST['username']);
-          $password = test_input($_POST['password']);
+          $password = $_POST['password'];
           $hash = password_hash($password, PASSWORD_DEFAULT);
-
           if(isset($username)){
-            $sql = "SELECT  * FROM vaishnavi_users WHERE user='" . $username . "' pass='" . $hash . "'";
+            $sql = "SELECT  * FROM vaishnavi_users WHERE user='" . $username . "'";
             $result = mysqli_query($conn, $sql) or die(mysql_error());
             $num = mysqli_num_rows($result); 
-            if ($num == 1) {
-                $_SESSION['username'] = $username;
-                header("location: home.php");
-          }
+            if($num)
+            {
+                while($row = mysqli_fetch_assoc($result)) {
+                    $dbusername = $row['user']; 
+                    $dbpassword = $row['pass']; 
+                }
+                if(password_verify($password,$dbpassword)){
+                    $_SESSION['username'] = $username;
+                    header("location: home.php");}
+                    else{
+                        echo "<script>alert('Wrong Password')</script>";
+                    }
+            }
+            else
+            {
+                echo "<script>alert('Account does not exist. Sign Up to create an account')</script>";
+            }
         }
-          else 
-          echo "<script> pass_wrong(); </script>";
-        }
+        else{
+            echo "<script>alert('Connection Error')</script>";}
+    }
 
 ?>
