@@ -64,7 +64,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
                 }
                 if(password_verify($password,$dbpassword)){
                     $_SESSION['username'] = $username;
-                    header("location: profile.php");}
+$sqlc = "SELECT chck FROM vaishnavi_check WHERE user='" . $username . "'";
+$resultc = mysqli_query($conn, $sqlc) or die(mysql_error());
+while($rowc = mysqli_fetch_assoc($resultc)) {
+    $chck = $rowc['chck'];}
+                    if($chck>0){
+                        header("location: home.php");}
+                    else{
+                        header("location: profile.php");}
+                    }
                     else{
                         echo "<script>alert('Wrong Password')</script>";
                     }

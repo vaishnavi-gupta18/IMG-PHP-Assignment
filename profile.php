@@ -88,11 +88,6 @@ $about = test_input($_POST['about']);
 $phno = test_input($_POST['phno']);
 $city = test_input($_POST['city']);
 $hobbies = test_input($_POST['hobbies']);
-if(isset($_FILES["image"]["name"]))
-{
-    $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-    echo "<script>alert('" . $ext . "')</script>";
-}
 $photo = time() . '-' . $_FILES["image"]["name"];
 $target_dir = "images/";
 $target_file = $target_dir . basename($photo);
@@ -103,17 +98,23 @@ if($_FILES['image']['size'] > 200000)
 if(file_exists($target_file)){
     echo "<script>alert('File already exists')</script>";
 }
-echo "<script>alert('" . $_FILES . "')</script>";
 
 if (empty($error)) {
     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-    echo "<script>alert('" . $ext . "')</script>";
     if(move_uploaded_file($_FILES["image"]["tmp_name"],$target_file)) {
       $sql = "INSERT INTO vaishnavi_profile ( user, fullname, about, phone, city, hobbies, photo) VALUES ('" . $username . "','" . $fullname . "','" . $about . "','" . $phno . "','" . $city . "','" . $hobbies . "','" . $photo . "')";
       $result = mysqli_query($conn, $sql);
     if($result)
     {
-        echo "<script>alert('Profile updated successfully')</script>";
+        $sqlc = "UPDATE vaishnavi_check SET chck='1' WHERE user='" . $username . "'";
+        if(mysqli_query($conn, $sqlc))
+        {
+            echo "<script>alert('Profile updated successfully')</script>";
+            header("location : home.php");
+        }
+        else{
+            echo "<script>alert('Error')</script>";
+        }
     }
     else{
         die("Connection failed: " . mysqli_connect_error());

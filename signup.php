@@ -85,7 +85,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     $sql = "INSERT INTO vaishnavi_users (user, email, pass) VALUES ('" . $username . "','" . $email . "','" . $hash . "')";
 
     if (mysqli_query($conn, $sql)) {
-      echo "<script>alert('Signed up successfully! Log in to continue')</script>";
+      
+      $sqlc = "INSERT INTO vaishnavi_check (user, chck) VALUES ('" . $username . "', '0')";
+      if(mysqli_query($conn, $sqlc)){
+        echo "<script>alert('Signed up successfully! Log in to continue')</script>";
+      }
       header("location: index.php");
       } }
     else {
