@@ -64,6 +64,78 @@ function cpass_val(pass){
         check = false;
     }
 }
+
+
+function name_val(){
+    clearErrors("ffullname")
+    var name = document.forms['profile']["fullname"].value;
+    pat[0]=/^[\w'.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*()\^{}|~<>;:[\]]{1,}$/
+    if(name.length==0)
+    {
+        seterror("ffullname","*Name cannot be empty");
+        check = false;
+    }
+    else if(pat[0].test(name)==false)
+    {
+        seterror("ffullname","*Name must contain only characters");
+        check = false;
+    }
+    }
+function phno_val(){
+    clearErrors("fphno")
+    var phno = document.forms['profile']["phno"].value;
+    pat[1]=/^(\+91[\-\s]?)?(91[\-\s]?)?[0]?(91)?(6|7|8|9)\d{9}/
+    if(phno.length==0)
+    {
+        seterror("fphno","*Phone number cannot be empty");
+        check = false;
+    }
+    else if(pat[1].test(phno)==false)
+    {
+        seterror("fphno","*Invalid Phone number");
+        check = false;
+    }
+}
+function city_val(){
+    clearErrors("fcity")
+    var city = document.forms['profile']["city"].value;
+    pat[5]=/[A-Za-z\-\s]+/
+    if(city.length==0)
+    {
+        seterror("fcity","*Enter your city");
+        check = false;
+    }
+    else if(pat[5].test(city)==false)
+    {
+        seterror("fcity","*City name must contain only characters");
+        check = false;
+    }
+}
+function about_val(){
+    clearErrors("fabout")
+    var about = document.forms['profile']["about"].value;
+    pat[6]=/^(.{1,100})$/
+    if(about.length==0)
+    {
+        seterror("fabout","*Add bio");
+        check = false;
+    }
+    else if(pat[6].test(about)==false)
+    {
+        seterror("fabout","*Bio must not exceed 100 characters");
+        check = false;
+    }
+}
+function hobbies_val(){
+    clearErrors("fhobbies")
+    var hobbies = document.forms['profile']["hobbies"].value;
+    pat[7]=/^(.{0,100})$/
+   if(pat[7].test(hobbies)==false)
+    {
+        seterror("fhobbies","*Must not exceed 100 characters");
+        check = false;
+    }
+}
 function validate()
 {
     var check = true; 
@@ -112,6 +184,35 @@ function validate_s()
     if(pat[3].test(pass)==false)
     {
         seterror("fpassword","*Password must contain at least one lowercase character, one uppercase character, one digit, one special character, and a length between 8 to 20");
+        check = false;
+    }
+    return check;
+}
+function validate_p(){
+    var check = true; 
+    var name = document.forms['profile']["fullname"].value;
+    var about = document.forms['profile']["about"].value;
+    var phno = document.forms['profile']["phno"].value;
+    var city = document.forms['profile']['city'].value;
+    var pat=[]
+    if(name.length==0)
+    {
+        seterror("ffullname","*Name can't be empty");
+        check = false;
+    }
+    if(about.length==0)
+    {
+        seterror("fabout","*Bio can't be empty");
+        check = false;
+    }
+    if(phno.length==0)
+    {
+        seterror("fphno","*Contact Number can't be empty");
+        check = false;
+    }
+    if(city.length==0)
+    {
+        seterror("fcity","*City can't be empty");
         check = false;
     }
     return check;

@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
                 }
                 if(password_verify($password,$dbpassword)){
                     $_SESSION['username'] = $username;
-                    header("location: home.php");}
+                    header("location: profile.php");}
                     else{
                         echo "<script>alert('Wrong Password')</script>";
                     }

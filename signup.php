@@ -86,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 
     if (mysqli_query($conn, $sql)) {
       echo "<script>alert('Signed up successfully! Log in to continue')</script>";
-      header("location: index.html");
+      header("location: index.php");
       } }
     else {
       echo "<script>alert('Confirmed password do not match')</script>";
