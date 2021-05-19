@@ -69,9 +69,15 @@ echo "<script>alert)'" . $_SESSION['username'] . "')</script>";
 
 <?php 
 include 'config.php';
+session_start();
 if(empty($_SESSION['username']))
 {
     header("location: index.php");
+}
+if($_SESSION['chck']>0)
+{
+    echo "<script>alert('Already updated the profile page')</script>";
+    header("location :index.php");
 }
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {

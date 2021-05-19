@@ -68,6 +68,7 @@ $sqlc = "SELECT chck FROM vaishnavi_check WHERE user='" . $username . "'";
 $resultc = mysqli_query($conn, $sqlc) or die(mysql_error());
 while($rowc = mysqli_fetch_assoc($resultc)) {
     $chck = $rowc['chck'];}
+                    $_SESSION['chck'] = $chck;
                     if($chck>0){
                         header("location: home.php");}
                     else{
