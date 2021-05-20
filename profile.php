@@ -106,9 +106,8 @@ if(file_exists($target_file)){
 }
 
 if (empty($error)) {
-    $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
     if(move_uploaded_file($_FILES["image"]["tmp_name"],$target_file)) {
-      $sql = "INSERT INTO vaishnavi_profile ( user, fullname, about, phone, city, hobbies, photo) VALUES ('" . $username . "','" . $fullname . "','" . $about . "','" . $phno . "','" . $city . "','" . $hobbies . "','" . $photo . "')";
+      $sql = "UPDATE vaishnavi_profile SET fullname='" . $fullname . "', about='" . $about . "', phone='" . $phno . "', city='" . $city . "', hobbies='" . $hobbies . "', photo='" . $photo ."' WHERE user='" . $username . "'";
       $result = mysqli_query($conn, $sql);
     if($result)
     {

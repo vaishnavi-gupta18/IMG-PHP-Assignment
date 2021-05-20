@@ -20,4 +20,12 @@
 <?php
 include 'config.php';
 session_start();
+if(empty($_SESSION['username']))
+{
+    header("location: index.php");
+}
+if($_SESSION['chck']!=1)
+{
+    header("location :profile.php");
+}
 ?>

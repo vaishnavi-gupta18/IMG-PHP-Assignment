@@ -16,13 +16,17 @@
                 <div class="form">
                 <div class="item" id="fusername">
                     <label for="username">Username :</label>
-                    <input id="username" name="username" oninput="user_val()"> 
+                    <input id="username" name="username" oninput="user_val()" value="<?php if(isset($_COOKIE["user_name"])) { echo $_COOKIE["user_name"]; } ?>"> 
                     <div class="ferror"></div>
                 </div>
                 <div class="item" id="fpassword">
                     <label for="password">Password :</label>
-                    <input id="password" name="password" type="password" oninput="pass_val()">
+                    <input id="password" name="password" type="password" oninput="pass_val()" value="<?php if(isset($_COOKIE["user_pass"])) { echo $_COOKIE["user_password"]; } ?>">
                     <div class="ferror"></div>
+                </div>
+                <div class="item" id="fremember">
+                <span><input id="remember" name="remember" type="checkbox">
+                    <label for="remember">Remember me</label></span>
                 </div>
                 <div class="item">
                     <input type="submit" value="Sign In" id="btn"></div>
@@ -69,6 +73,11 @@ $resultc = mysqli_query($conn, $sqlc) or die(mysql_error());
 while($rowc = mysqli_fetch_assoc($resultc)) {
     $chck = $rowc['chck'];}
                     $_SESSION['chck'] = $chck;
+                    if(isset($_POST["remember"])) {
+                        setcookie ("user_name",$username,time()+ 86400);
+                        setcookie ("user_pass",$password,time()+ 86400);
+                        } 
+
                     if($chck>0){
                         header("location: home.php");}
                     else{
