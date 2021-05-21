@@ -11,7 +11,6 @@
 </head>
 <body>
 <form name="logout" action='logout.php' id="form" method="post">
-
 <div class="item">
 <input type="submit" value="Logout" id="btn"></div>
 </form>

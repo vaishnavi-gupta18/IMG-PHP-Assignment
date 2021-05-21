@@ -1,7 +1,6 @@
 <?php
 include("auth_session.php");
 session_start();
-echo "<script>alert)'" . $_SESSION['username'] . "')</script>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +34,15 @@ echo "<script>alert)'" . $_SESSION['username'] . "')</script>";
                     <div class="item" id="ffullname">
                         <label for="fullname">Name :</label>
                         <input id="fullname" name="fullname" placeholder="Add your name" oninput="name_val()"> 
+                        <div class="ferror"></div>
+                    </div>
+                    <div class="item" id="fgender">
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label><br>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label><br>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">Other</label>
                         <div class="ferror"></div>
                     </div>
                     <div class="item" id="fabout">
@@ -72,12 +80,7 @@ include 'config.php';
 session_start();
 if(empty($_SESSION['username']))
 {
-    header("location: index.php");
-}
-if($_SESSION['chck']>0)
-{
-    echo "<script>alert('Already updated the profile page')</script>";
-    header("location :index.php");
+    header("location:index.php");
 }
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {

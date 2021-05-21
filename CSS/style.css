@@ -76,3 +76,54 @@ input{
     color: white;
     font-size: 1em;
 }
+.view{
+    align-items: center;
+}
+#containeruser{
+    width:100%;
+}
+table{
+    width:80%;
+    border : solid 1px blue;
+}
+.users{
+    width:80%;
+}
+#users {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #users td, #users th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #users tr:nth-child(even){
+    background-color: #f2f2f2;
+    width:20%;
+}
+  
+  #users tr:hover {background-color: #ddd;}
+  
+  #users th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(20 92 166);
+    color: white;
+  }
+.contain{
+    height: auto;
+    width:100%;
+    background-color:white;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}  
+#fgender{
+    display: flex;
+    flex-direction: row;
+}

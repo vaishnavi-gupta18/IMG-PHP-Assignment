@@ -16,19 +16,19 @@
                 <div class="form">
                 <div class="item" id="fusername">
                     <label for="username">Username :</label>
-                    <input id="username" name="username" oninput="user_val()" value="<?php if(isset($_COOKIE["user_name"])) { echo $_COOKIE["user_name"]; } ?>"> 
+                    <input id="username" name="username" oninput="user_val()" value="<?php if(isset($_COOKIE['user_name'])) { echo $_COOKIE['user_name']; } ?>">
                     <div class="ferror"></div>
                 </div>
                 <div class="item" id="fpassword">
                     <label for="password">Password :</label>
-                    <input id="password" name="password" type="password" oninput="pass_val()" value="<?php if(isset($_COOKIE["user_pass"])) { echo $_COOKIE["user_password"]; } ?>">
+                    <input id="password" name="password" type="password" oninput="pass_val()" value="<?php if(isset($_COOKIE['user_pass'])) { echo $_COOKIE['user_pass']; } ?>">
                     <div class="ferror"></div>
                 </div>
-                <div class="item" id="fremember">
+                 <div class="item" id="fremember">
                 <span><input id="remember" name="remember" type="checkbox">
                     <label for="remember">Remember me</label></span>
                 </div>
-                <div class="item">
+                <div>
                     <input type="submit" value="Sign In" id="btn"></div>
             <div class="item">
                 <div>Don't have an account? <a href='signup.php'>Sign Up here</a></div>
@@ -45,7 +45,7 @@ session_start();
 include 'config.php';
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
-    
+
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -59,29 +59,33 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
           if(isset($username)){
             $sql = "SELECT  * FROM vaishnavi_users WHERE user='" . $username . "'";
             $result = mysqli_query($conn, $sql) or die(mysql_error());
-            $num = mysqli_num_rows($result); 
+            $num = mysqli_num_rows($result);
             if($num)
             {
                 while($row = mysqli_fetch_assoc($result)) {
-                    $dbusername = $row['user']; 
-                    $dbpassword = $row['pass']; 
+                    $dbusername = $row['user'];
+                    $dbpassword = $row['pass'];
                 }
                 if(password_verify($password,$dbpassword)){
                     $_SESSION['username'] = $username;
-$sqlc = "SELECT chck FROM vaishnavi_check WHERE user='" . $username . "'";
+$sqlc = "SELECT chck FROM vaishnavi_profile WHERE user='" . $username . "'";
 $resultc = mysqli_query($conn, $sqlc) or die(mysql_error());
 while($rowc = mysqli_fetch_assoc($resultc)) {
     $chck = $rowc['chck'];}
                     $_SESSION['chck'] = $chck;
-                    if(isset($_POST["remember"])) {
-                        setcookie ("user_name",$username,time()+ 86400);
-                        setcookie ("user_pass",$password,time()+ 86400);
-                        } 
+
+                     if(isset($_POST['remember']))
+                     {
+                        setcookie('user_name',$username,time()+86400);
+                        setcookie('user_pass',$password,time()+86400);
+                     }
+
+
 
                     if($chck>0){
-                        header("location: home.php");}
+                        header('location:feed.php');}
                     else{
-                        header("location: profile.php");}
+                        header('location:profile.php');}
                     }
                     else{
                         echo "<script>alert('Wrong Password')</script>";
